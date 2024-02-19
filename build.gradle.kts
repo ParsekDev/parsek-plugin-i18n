@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "co.statu.parsek"
-version = project.findProperty("version") ?: "0.0.1"
+version = (if (project.hasProperty("version") && project.findProperty("version") != "unspecified") project.findProperty("version") else "local-build")!!
 
 val pf4jVersion: String by project
 val vertxVersion: String by project
@@ -59,7 +59,7 @@ tasks {
         manifest {
             attributes["Plugin-Class"] = pluginClass
             attributes["Plugin-Id"] = pluginId
-            attributes["Plugin-Version"] = archiveVersion
+            attributes["Plugin-Version"] = version
             attributes["Plugin-Provider"] = pluginProvider
             attributes["Plugin-Dependencies"] = pluginDependencies
         }
