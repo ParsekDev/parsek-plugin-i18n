@@ -103,7 +103,7 @@ publishing {
     publications {
         create<MavenPublication>("shadow") {
             project.extensions.configure<com.github.jengelman.gradle.plugins.shadow.ShadowExtension> {
-                artifactId = "core"
+                artifactId = "parsek-i18n-plugin"
                 component(this@create)
             }
         }
