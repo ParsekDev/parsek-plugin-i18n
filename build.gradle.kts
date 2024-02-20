@@ -12,6 +12,7 @@ val pf4jVersion: String by project
 val vertxVersion: String by project
 val handlebarsVersion: String by project
 val bootstrap = project.findProject("bootstrap") as Boolean? ?: false
+val pluginsDir: File? by rootProject.extra
 
 repositories {
     mavenCentral()
@@ -46,10 +47,6 @@ tasks.named("jar").configure {
 }
 
 tasks {
-    build {
-        dependsOn(shadowJar)
-    }
-
     shadowJar {
         val pluginId: String by project
         val pluginClass: String by project
@@ -72,6 +69,22 @@ tasks {
                 it.moduleGroup == "io.netty" || it.moduleGroup == "org.slf4j"
             }
         }
+    }
+
+    register("copyJar") {
+        pluginsDir?.let {
+            doLast {
+                copy {
+                    from(shadowJar.get().archiveFile.get().asFile.absolutePath)
+                    into(it)
+                }
+            }
+        }
+    }
+
+    build {
+        dependsOn(shadowJar)
+        dependsOn("copyJar")
     }
 }
 
