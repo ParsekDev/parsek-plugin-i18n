@@ -61,7 +61,7 @@ tasks {
             attributes["Plugin-Dependencies"] = pluginDependencies
         }
 
-        archiveFileName.set("$pluginId.jar")
+        archiveFileName.set("$pluginId-$version.jar")
 
         dependencies {
             exclude(dependency("io.vertx:vertx-core"))
