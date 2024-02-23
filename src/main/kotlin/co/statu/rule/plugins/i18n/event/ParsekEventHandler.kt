@@ -15,7 +15,8 @@ class ParsekEventHandler : ParsekEventListener {
             I18nPlugin.INSTANCE,
             I18nConfig::class.java,
             logger,
-            listOf()
+            listOf(),
+            listOf("i18n")
         )
 
         logger.info("Initialized plugin config")
