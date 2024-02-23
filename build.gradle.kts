@@ -11,7 +11,7 @@ version = (if (project.hasProperty("version") && project.findProperty("version")
 val pf4jVersion: String by project
 val vertxVersion: String by project
 val handlebarsVersion: String by project
-val bootstrap = project.findProject("bootstrap") as Boolean? ?: false
+val bootstrap = (project.findProperty("bootstrap") as String?)?.toBoolean() ?: false
 val pluginsDir: File? by rootProject.extra
 
 repositories {
