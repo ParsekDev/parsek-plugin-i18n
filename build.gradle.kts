@@ -84,7 +84,9 @@ tasks {
 
     build {
         dependsOn(shadowJar)
-        dependsOn("copyJar")
+        doLast {
+            dependsOn("copyJar")
+        }
     }
 }
 
