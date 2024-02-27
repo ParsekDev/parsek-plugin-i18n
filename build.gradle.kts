@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version "1.9.20"
-    kotlin("kapt") version "1.9.20"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     `maven-publish`
 }
@@ -29,7 +28,6 @@ dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
 
     compileOnly("org.pf4j:pf4j:${pf4jVersion}")
-    kapt("org.pf4j:pf4j:${pf4jVersion}")
 
     compileOnly("io.vertx:vertx-web:$vertxVersion")
     compileOnly("io.vertx:vertx-lang-kotlin:$vertxVersion")
@@ -40,10 +38,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.github.jknack/handlebars
     compileOnly("com.github.jknack:handlebars:$handlebarsVersion")
-}
-
-tasks.named("jar").configure {
-    enabled = false
 }
 
 tasks {
@@ -80,7 +74,8 @@ tasks {
         }
     }
 
-    build {
+    jar {
+        enabled = false
         dependsOn(shadowJar)
         dependsOn("copyJar")
     }
