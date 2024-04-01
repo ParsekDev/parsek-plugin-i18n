@@ -1,9 +1,7 @@
 package co.statu.rule.plugins.i18n
 
-import co.statu.parsek.PluginEventManager
 import co.statu.parsek.api.config.PluginConfigManager
 import co.statu.parsek.util.TextUtil.compileInline
-import co.statu.rule.plugins.i18n.event.I18nEventListener
 import com.github.jknack.handlebars.Template
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
@@ -14,7 +12,7 @@ import java.nio.file.Paths
 import kotlin.collections.set
 import kotlin.system.exitProcess
 
-class I18nSystem private constructor(
+class I18nSystem internal constructor(
     private val vertx: Vertx,
     private val pluginConfigManager: PluginConfigManager<I18nConfig>,
     private val logger: Logger
@@ -28,23 +26,6 @@ class I18nSystem private constructor(
     }
 
     private val locales = mutableMapOf<String, Map<String, Template>>()
-
-    companion object {
-        internal fun create(
-            vertx: Vertx,
-            pluginConfigManager: PluginConfigManager<I18nConfig>,
-            pluginEventManager: PluginEventManager,
-            logger: Logger
-        ): I18nSystem {
-            val i18nSystem = I18nSystem(vertx, pluginConfigManager, logger)
-
-            val i18nEventHandlers = pluginEventManager.getEventHandlers<I18nEventListener>()
-
-            i18nEventHandlers.forEach { it.onReady(i18nSystem) }
-
-            return i18nSystem
-        }
-    }
 
     init {
         checkFolder()
