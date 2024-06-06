@@ -26,28 +26,6 @@ class AuthEventHandler(
         pluginConfigManager.config
     }
 
-    override suspend fun onAuthFieldsManagerReady(authFieldManager: AuthFieldManager) {
-        if (!config.hookAuthPlugin) {
-            return
-        }
-
-        authFieldManager.addRegisterField(
-            AuthConfig.Companion.RegisterField(
-                field = "lang",
-                isBlankCheck = true,
-                optional = false,
-                min = 0,
-                max = null,
-                regex = null,
-                unique = false,
-                upperCaseFirstChar = false,
-                hiddenToUI = false,
-                type = AuthConfig.Companion.RegisterField.Companion.Type.STRING,
-                onlyRegister = false
-            )
-        )
-    }
-
     override suspend fun onValidatingRegisterField(
         field: Any?,
         registerField: AuthConfig.Companion.RegisterField,
