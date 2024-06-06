@@ -4,5 +4,6 @@ import co.statu.parsek.api.config.PluginConfig
 
 data class I18nConfig(
     val defaultLocale: String = "EN",
-    val localeDir: String = "./locales"
+    val localeDir: String = "./locales",
+    val hookAuthPlugin: Boolean = true
 ) : PluginConfig()

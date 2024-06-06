@@ -11,6 +11,8 @@ version = (if (project.hasProperty("version") && project.findProperty("version")
 val pf4jVersion: String by project
 val vertxVersion: String by project
 val handlebarsVersion: String by project
+val springContextVersion: String by project
+
 val bootstrap = (project.findProperty("bootstrap") as String?)?.toBoolean() ?: false
 val pluginsDir: File? by rootProject.extra
 
@@ -22,8 +24,10 @@ repositories {
 dependencies {
     if (bootstrap) {
         compileOnly(project(mapOf("path" to ":Parsek")))
+        compileOnly(project(mapOf("path" to ":plugins:parsek-plugin-auth")))
     } else {
         compileOnly("com.github.StatuParsek:Parsek:main-SNAPSHOT")
+        compileOnly("com.github.StatuParsek:parsek-plugin-auth:2.0.0")
     }
 
     compileOnly(kotlin("stdlib-jdk8"))
@@ -40,6 +44,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.github.jknack/handlebars
     compileOnly("com.github.jknack:handlebars:$handlebarsVersion")
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-context
+    compileOnly("org.springframework:spring-context:$springContextVersion")
 }
 
 tasks {
