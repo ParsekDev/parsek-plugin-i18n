@@ -69,5 +69,7 @@ class CoreEventHandler(private val i18nPlugin: I18nPlugin, private val vertx: Ve
                 onlyRegister = false
             )
         )
+
+        logger.info("Hooked into parsek-plugin-auth plugin")
     }
 }
