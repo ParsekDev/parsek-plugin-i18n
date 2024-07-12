@@ -17,9 +17,6 @@ import org.slf4j.Logger
 @EventListener
 class CoreEventHandler(private val i18nPlugin: I18nPlugin, private val vertx: Vertx, private val logger: Logger) :
     CoreEventListener {
-    private val authFieldManager by lazy {
-        i18nPlugin.pluginBeanContext.getBean(AuthFieldManager::class.java)
-    }
 
     override suspend fun onConfigManagerReady(configManager: ConfigManager) {
         val pluginConfigManager = PluginConfigManager(
@@ -55,6 +52,8 @@ class CoreEventHandler(private val i18nPlugin: I18nPlugin, private val vertx: Ve
             return
         }
 
+        val authFieldManager = i18nPlugin.pluginBeanContext.getBean(AuthFieldManager::class.java)
+
         authFieldManager.addRegisterField(
             AuthConfig.Companion.RegisterField(
                 field = "lang",
@@ -70,5 +69,7 @@ class CoreEventHandler(private val i18nPlugin: I18nPlugin, private val vertx: Ve
                 onlyRegister = false
             )
         )
+
+        logger.info("Hooked into parsek-plugin-auth plugin")
     }
 }
