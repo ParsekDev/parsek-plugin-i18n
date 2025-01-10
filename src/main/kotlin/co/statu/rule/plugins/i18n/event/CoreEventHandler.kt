@@ -10,7 +10,6 @@ import co.statu.rule.auth.AuthFieldManager
 import co.statu.rule.plugins.i18n.I18nConfig
 import co.statu.rule.plugins.i18n.I18nPlugin
 import co.statu.rule.plugins.i18n.I18nSystem
-import co.statu.rule.plugins.i18n.config.migration.ConfigMigration1to2
 import io.vertx.core.Vertx
 import org.slf4j.Logger
 
@@ -20,11 +19,8 @@ class CoreEventHandler(private val i18nPlugin: I18nPlugin, private val vertx: Ve
 
     override suspend fun onConfigManagerReady(configManager: ConfigManager) {
         val pluginConfigManager = PluginConfigManager(
-            configManager,
             i18nPlugin,
-            I18nConfig::class.java,
-            listOf(ConfigMigration1to2()),
-            listOf("i18n")
+            I18nConfig::class.java
         )
 
         i18nPlugin.pluginBeanContext.beanFactory.registerSingleton(
