@@ -30,7 +30,7 @@ dependencies {
         compileOnly(project(mapOf("path" to ":plugins:parsek-plugin-auth")))
     } else {
         compileOnly("dev.parsek:core:1.0.0-beta.19")
-        compileOnly("dev.parsek:parsek-plugin-auth:1.0.0-dev.6")
+        compileOnly("dev.parsek:parsek-plugin-auth:1.0.0-dev.7")
     }
 
     compileOnly(kotlin("stdlib-jdk8"))
