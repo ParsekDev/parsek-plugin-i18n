@@ -26,8 +26,16 @@ repositories {
 
 dependencies {
     if (bootstrap) {
-        compileOnly(project(mapOf("path" to ":Parsek")))
-        compileOnly(project(mapOf("path" to ":plugins:parsek-plugin-auth")))
+        listOf(
+            ":Parsek" to "Parsek*.jar",
+            ":plugins:parsek-plugin-auth" to "parsek-plugin-auth*.jar"
+        ).forEach { (path, pattern) ->
+            if (findProject(path) != null) {
+                compileOnly(project(path))
+            } else {
+                compileOnly(fileTree(rootDir) { include(pattern) })
+            }
+        }
     } else {
         compileOnly("dev.parsek:core:1.0.0-beta.19")
         compileOnly("dev.parsek:parsek-plugin-auth:1.0.0-dev.7")
